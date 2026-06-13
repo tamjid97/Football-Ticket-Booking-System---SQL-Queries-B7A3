@@ -1,4 +1,5 @@
 
+
 -- =========================================================================
 -- 1. CREATE USERS TABLE
 -- =========================================================================
@@ -72,7 +73,7 @@ INSERT INTO Bookings (booking_id, user_id, match_id, seat_number, payment_status
 -- where the match status is 'Available'.
 -- =========================================================================
 
-select * from matches
+select match_id, fixture, base_ticket_price from matches
 where tournament_category = 'Champions League' and match_status = 'Available';
 
 -- =========================================================================
@@ -80,7 +81,7 @@ where tournament_category = 'Champions League' and match_status = 'Available';
 -- with 'Tanvir' or contain the phrase 'Haque' (case-insensitive).
 -- =========================================================================
 
-select * from users
+select user_id, full_name, email from users
 where full_name ilike 'Tanvir%' or full_name ilike '%Haque%';
 
 -- =========================================================================
@@ -89,7 +90,7 @@ where full_name ilike 'Tanvir%' or full_name ilike '%Haque%';
 -- ========================================================================
 
 select booking_id,user_id,match_id, coalesce(payment_status,'Action Required') AS systematic_status from bookings
-where payment_status is null
+where payment_status is null;
 
 -- =========================================================================
 -- Query 4: Retrieve match booking details along with the User's 
@@ -125,5 +126,10 @@ select match_id, fixture, base_ticket_price from matches
 WHERE base_ticket_price < (select MAX(base_ticket_price) FROM matches)
 ORDER BY base_ticket_price DESC
 LIMIT 2;
+
+
+
+
+
 
 
