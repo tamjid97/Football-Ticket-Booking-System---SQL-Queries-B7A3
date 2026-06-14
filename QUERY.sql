@@ -1,5 +1,5 @@
 
-
+drop table users
 -- =========================================================================
 -- 1. CREATE USERS TABLE
 -- =========================================================================
@@ -20,7 +20,7 @@ CREATE TABLE Matches (
     match_id SERIAL primary key,
     fixture VARCHAR(255) not null,
     tournament_category VARCHAR(255) not null,
-    base_ticket_price DECIMAL(8,2) not null CHECK (base_ticket_price >= 0) ,
+    base_ticket_price INTEGER not null CHECK (base_ticket_price >= 0) ,
     match_status VARCHAR(255) not null CHECK (match_status IN ('Available', 'Selling Fast', 'Sold Out', 'Postponed'))
 );
 
@@ -35,7 +35,7 @@ CREATE TABLE Bookings (
     match_id INTEGER REFERENCES matches(match_id) not null,
     seat_number VARCHAR(255),
     payment_status VARCHAR(255) CHECK (payment_status IN ('Pending', 'Confirmed', 'Cancelled', 'Refunded')),
-    total_cost DECIMAL(8,2) not null CHECK (total_cost >= 0)
+    total_cost INTEGER not null CHECK (total_cost >= 0)
 );
 
 
